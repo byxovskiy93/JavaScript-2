@@ -1,0 +1,44 @@
+*, *:before, *:after {
+    box-sizing: border-box;
+    border: none;
+}
+
+:active, :hover, :focus {
+    outline: 0 !important;
+    outline-offset: 0 !important;
+}
+
+body {
+    margin: 0;
+    padding: 0 20px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.container{
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.calculate-section{
+    padding-top: 60px;
+    text-align: center;
+}
+
+.images-hamburger{
+    padding-bottom: 40px;
+}
+
+.calculate-info{
+    padding: 20px 0;
+}
+.calculate-calories{
+    display: inline-block;
+    font-size: 24px;
+    padding-left: 20px;
+}
+
+.calculate-sum{
+    display: inline-block;
+    font-size: 24px;
+}

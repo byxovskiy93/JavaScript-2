@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Lesson-2</title>
+    <link rel="stylesheet" href="css/fastFood.css">
+    <link rel="stylesheet" href="css/fastFoodMedia.css">
+
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script src="js/fastFood.js" async></script>
+</head>
+<body>
+    <section class="calculate-section">
+        <div class="container">
+            <div class="images-hamburger"></div>
+            <div class="calculate-info">
+                <div class="calculate-sum"></div>
+                <div class="calculate-calories"></div>
+            </div>
+            <form id="calculate-form">
+                <div class="form-group">
+                    <label for="hamburger">Тип гамбургера</label>
+                    <select class="form-control"  id="hamBurger">
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="filling">Начинка</label>
+                    <select  class="form-control" id="filling"></select>
+                </div>
+
+                <div class="form-group">
+                    <label for="additionally">Дополнительно</label>
+                    <select multiple class="form-control" id="additionally"></select>
+                </div>
+
+                <button type="submit" id="calculate-form-submit" class="btn btn-primary">Рассчитать</button>
+
+            </form>
+        </div>
+    </section>
+</body>
+</html>
