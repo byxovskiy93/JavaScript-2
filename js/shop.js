@@ -1,8 +1,12 @@
 "use strict"
 
+const API_URL = 'http://json.maysalon.ru';
+
 class GoodsItem {
 
-    constructor(title,price,rating,images = 'images/product/no-images.png') {
+
+    constructor(id,title,price,rating,images = 'images/product/no-images.png') {
+        this.id = id;
         this.title = title;
         this.rating = rating;
         this.images = images;
@@ -10,7 +14,7 @@ class GoodsItem {
     }
 
     render() {
-        return `<div class="product-item">` +
+        return `<div class="product"><div class="product-body">` +
             `<div class="item-head">
             <div class="item-images"><img src="${this.images}"></div>
             </div>` +
@@ -19,7 +23,13 @@ class GoodsItem {
             <div class="item-price">${this.price} <i class="fas fa-ruble-sign"></i></div>
             </div>`+
             `<div class="item-footer"><div class="item-rating">${this.ratingIcon()}</div></div>` +
-            `</div>`;
+            `</div>
+            <div class="product-select">
+                  <div class="product-dropdown" data-price="${this.price}" data-name="${this.title}" data-id="${this.id}" data-images="${this.images}">
+                  <p class="issue">Добавить в корзину</p>
+               </div>
+            </div>
+           </div>`;
     }
 
     ratingIcon(){
@@ -42,26 +52,39 @@ class GoodsList {
     }
 
     fetchGoods() {
-        this.goods = [
-            {title:'Бизиборд "Шестерёнки"',price:'600',rating: 0},
-            {title:'Бизиборд "Часики"',price:'700',rating: 1,images: 'images/product/2.jpg'},
-            {title:'Бизиборд "Вундеркинд"',price:'400',rating: 3,images: 'images/product/3.jpg'},
-            {title:'Бизиборд "Развивайка"',price:'900',rating: 5,images: 'images/product/4.jpg'},
-            {title:'Бизиборд "Весёлая Радуга"',price:'1200',rating: 2,images: 'images/product/5.jpg'},
-            {title:'Бизиборд "Вагончики"',price:'1600',images: 'images/product/6.jpg'},
-            {title:'Бизиборд "Веселые дверки"',price:'1900',rating: 5,images: 'images/product/7.jpg'},
-            {title:'Бизиборд "Чудо-теремок"',price:'780',rating: 5,images: 'images/product/8.jpg'}
-        ];
+
+        new Promise((resolve, reject) => {
+
+            this.makeGETRequest(`${API_URL}/catalogData.json`).then((goods) => {
+                this.goods = JSON.parse(goods);
+            }).catch(error => {
+                alert('Произошла ошибка на сервере!');
+            });
+
+            setTimeout(() => {
+                if (this.goods) {
+                    resolve(this.goods);
+                } else {
+                    reject('Слишком долгий ответ от сервера');
+                }
+            }, 300);
+        }).then(() => {
+            this.render();
+        }).catch(error => {
+            alert(error);
+        });
     }
 
+
     render() {
-        let listHtml = '';
-        this.goods.forEach(good => {
-            const goodItem = new GoodsItem(good.title, good.price,good.rating,good.images);
-            listHtml += goodItem.render();
-        });
-        document.querySelector('.products-list').innerHTML = listHtml;
-    }
+                let listHtml = '';
+                this.goods.forEach(good => {
+                    const goodItem = new GoodsItem(good.id_product,good.product_name, good.price,good.rating,good.images);
+                    listHtml += goodItem.render();
+                });
+                document.querySelector('.products-list').innerHTML = listHtml;
+            }
+
 
     getSum(){
         let sum = 0;
@@ -71,49 +94,43 @@ class GoodsList {
         return sum;
     }
 
+
+     makeGETRequest(url) {
+            return new Promise((resolve, reject) => {
+            var xhr;
+
+            if (window.XMLHttpRequest) {
+                xhr = new XMLHttpRequest();
+            } else if (window.ActiveXObject) {
+                xhr = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+
+                xhr.onload = () => {
+                    if (xhr.readyState === 4) {
+                        resolve(xhr.response);
+                    }else{
+                        reject(xhr.statusText);
+                    }
+                };
+            xhr.open('GET', url, true);
+            xhr.send();
+        })
+    }
 }
 
 const list = new GoodsList();
 
 list.fetchGoods();
-list.render();
+
+
+
+
+
 
 //Получаем сумму всех товаров
-list.getSum();
+//list.getSum();
 
-class Basket {
 
-    constructor(){
-       this.basketArray = [];
-    }
 
-    addItem(){
 
-    }
-
-    deleteItem(id){
-
-    }
-
-    getSum(){
-
-    }
-
-}
-
-class BasketItem{
-
-    constructor(title,price,rating,images,count) {
-        this.title = title;
-        this.rating = rating;
-        this.images = images;
-        this.price =  parseInt(price);
-        this.count =  parseInt(count);
-    }
-
-    getSum(){
-        return this.price * this.count;
-    }
-
-}
 
