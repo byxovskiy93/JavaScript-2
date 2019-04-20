@@ -1,6 +1,7 @@
 "use strict";
 let text = document.querySelector('.text').innerHTML;
-let newText = text.replace(/'[a-zA-Z\s]+'|'[à-ÿ¸\s]+'/g, e => {
+let newText = text.replace(/'[a-zA-Z\s]+'|'[Ð°-ÑÑ‘\s]+'/g, e => {
     return e.replace(/'/g,"\"");
 });
 document.querySelector('.text').innerHTML = newText;
+

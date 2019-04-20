@@ -11,7 +11,7 @@ let email = document.getElementById('email');
 function validateName (v){
     if(/\d/.test(v)){
         name.setAttribute("style", "border: 1px solid red;");
-        notificationName.innerHTML += 'Имя может содержать только буквенные символы!<br>';
+        notificationName.innerHTML += 'РРјСЏ РјРѕР¶РµС‚ СЃРѕРґРµСЂР¶Р°С‚СЊ С‚РѕР»СЊРєРѕ Р±СѓРєРІРµРЅРЅС‹Рµ СЃРёРјРІРѕР»С‹!<br>';
         return false;
     }else{
         name.setAttribute("style", "");
@@ -26,7 +26,7 @@ function validatePhone (v){
 
     if(v.length < 11){
         phone.setAttribute("style", "border: 1px solid red;");
-        notificationPhone.innerHTML += 'Для телефона минимальное количество символов 11!<br>';
+        notificationPhone.innerHTML += 'Р”Р»СЏ С‚РµР»РµС„РѕРЅР° РјРёРЅРёРјР°Р»СЊРЅРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ СЃРёРјРІРѕР»РѕРІ 11!<br>';
         return false;
     } else if(/^\d+$/.test(v) && v.length >= 11){
         let p = phone.value.replace(/\D/g, '').match(/(\d{1})(\d{3})(\d{3})(\d{4})/);
@@ -36,7 +36,7 @@ function validatePhone (v){
         return true;
     }else{
         phone.setAttribute("style", "border: 1px solid red;");
-        notificationPhone.innerHTML += 'Телефон может содержать только цифры!<br>';
+        notificationPhone.innerHTML += 'РўРµР»РµС„РѕРЅ РјРѕР¶РµС‚ СЃРѕРґРµСЂР¶Р°С‚СЊ С‚РѕР»СЊРєРѕ С†РёС„СЂС‹!<br>';
         return false;
     }
 }
@@ -48,7 +48,7 @@ function validateEmail (v){
         return true;
     }else{
         email.setAttribute("style", "border: 1px solid red;");
-        notificationEmail.innerHTML += 'Вы указали невреный формат email адреса!<br>';
+        notificationEmail.innerHTML += 'Р’С‹ СѓРєР°Р·Р°Р»Рё РЅРµРІСЂРµРЅС‹Р№ С„РѕСЂРјР°С‚ email Р°РґСЂРµСЃР°!<br>';
         return false;
     }
 }
@@ -69,6 +69,6 @@ email.addEventListener('blur',e => {
 document.getElementById('testForm').addEventListener('submit',e =>{
     e.preventDefault();
     if(validateName(name.value) && validateEmail(email.value)){
-        alert('Форма отправлена!');
+        alert('Р¤РѕСЂРјР° РѕС‚РїСЂР°РІР»РµРЅР°!');
     }
 });
