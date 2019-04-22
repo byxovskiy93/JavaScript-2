@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Форма</title>
+    <script src="js/lesson-4-form.js" async></script>
+    <style>
+        #notification-name,
+        #notification-phone,
+        #notification-email{
+            display: block;
+            color: red;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+<form action="#" id="testForm" method="post">
+    <input type="text" id="name" placeholder="Укажите имя" required>
+    <br><br>
+    <input type="text" id="phone" placeholder="7 (000) 000-00-00" required>
+    <br><br>
+    <input type="text" id="email" placeholder="E-mail" required>
+    <br>
+    <div id="notification-name"></div>
+    <div id="notification-phone"></div>
+    <div id="notification-email"></div>
+    <input type="submit" value="Отправить">
+</form>
+</body>
+</html>
