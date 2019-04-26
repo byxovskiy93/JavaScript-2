@@ -22,22 +22,6 @@ let app = new Vue ({
         addProduct (product) {
             console.log (product.id_product);
         },
-        filterGoods(){
-            this.products = [];
-            this.getJson (`${API + this.catalogUrl}`)
-                .then (data => {
-                    for (let el of data) {
-                        if(el.product_name.search(new RegExp(this.searchLine, "i"))) continue;
-                        this.products.push (el)
-                    }
-                });
-            this.getJson (`getProducts.json`)
-                .then (data => {
-                    for (let el of data) {
-                        this.products.push (el)
-                    }
-                });
-        }
     },
     mounted () {
         this.getJson (`${API + this.catalogUrl}`)
@@ -52,18 +36,8 @@ let app = new Vue ({
                     this.products.push (el)
                 }
             });
-    }
+    },
 });
-
-
-
-
-
-
-
-
-
-
 
 //ОПТИМИЗАЦИЯ
 
