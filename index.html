@@ -1,76 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-    <!--НЕОСНОВНОЙ СТИЛЬ (БУТСТРАП)-->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-    <!--ОСНОВНЫЕ СТИЛИ-->
-    <link rel="stylesheet" href="style.css">
-
-    <title>e-Shop</title>
+    <title>Интернет-магазин</title>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
 <div id="app">
     <header>
-
-        <div class="search">
-            <input type="text"   v-model="searchLine">
-            <input type="submit" @click="filterGoods"  value="поиск">
-        </div>
-
-    	<!--КОРЗИНА-->
-        <div class="dropdown mydropdown">
-
-            <button v-if="isVisibleCart" class="cart-button dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">Корзина</button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#">Ваша корзина</a>
-                <div class="basket"></div>
-            </div>
+        <div class="logo">E-shop</div>
+        <div class="cart">
+            <search></search>
+            <button class="btn-cart" type="button" @click="showCart = !showCart">Корзина</button>
+            <cart
+            :cart-items="cartItems"
+            :img="imgCart"
+            :visibility="showCart"
+            @remove="remove"></cart>
         </div>
     </header>
-
     <main>
-    	<!--ЗАГРУЗКА ТОВАРОВ-->
-        <div v-if="products.length == 0" class="no-data">Нет данных!</div>
-        <div v-if="products.length != 0" class="products">
-            <div class="product-item" v-for="product of products" :key="product.id_product">
-                <img :src="imgCatalog" alt="">
-                <div class="desc">
-                    <h3> {{ product.product_name }} </h3>
-                    <p> {{ product.price }} </p>
-                    <button class="buy-btn" @click="addProduct (product)">Купить</button>
-                </div>
-            </div>
-
-        </div>
+        <alert-error v-if="products.length == 0">Неудалось получить данные с сервера.</alert-error>
+        <alert-warning v-if="filtered.length == 0 && products.length != 0">Нам нечего не удалось найти, попробуйте изменить запрос.</alert-warning>
+        <products v-if="products.length != 0"  :products="filtered" :img="imgCatalog" @add-product="addProduct"></products>
     </main>
+
+
 </div>
-    
-    <script src="vue.js"></script>
-    <script src="script.js"></script> <!--ОСНОВНОЙ СКРИПТ-->
-
-
-	
-
-	<!--НЕОСНОВНОЙ СКРИПТ (БУТСТРАП)-->
-	
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="js/CartComp.js"></script>
+    <script src="js/ProdComp.js"></script>
+    <script src="js/SearchComp.js"></script>
+    <script src="js/AlertComp.js"></script>
+    <script src="js/main.js"></script>
 </body>
-
 </html>
+
+<!--<div class="cart-item" data-id="${this.id_product}">-->
+<!--<div class="product-bio">-->
+<!--<img src="${this.img}" alt="Some image">-->
+<!--<div class="product-desc">-->
+<!--<p class="product-title">${this.product_name}</p>-->
+<!--<p class="product-quantity">Quantity: ${this.quantity}</p>-->
+<!--<p class="product-single-price">$${this.price} each</p>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="right-block">-->
+<!--<p class="product-price">${this.quantity*this.price}</p>-->
+<!--<button class="del-btn" data-id="${this.id_product}">&times;</button>-->
+<!--</div>-->
+<!--</div>-->
