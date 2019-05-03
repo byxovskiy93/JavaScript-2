@@ -1,0 +1,14 @@
+{
+    "handler": [
+        {
+            "action": "delete",
+            "product": "Gamepad",
+            "time": "03-05-2019 15:35:19"
+        },
+        {
+            "action": "delete",
+            "product": "Display",
+            "time": "03-05-2019 15:35:19"
+        }
+    ]
+}
